@@ -66,8 +66,8 @@ public class AutoOpRobotAll extends LinearOpMode {
             //Step2: Descend
             baseRobot.RobotDescend();
             sleep(3500);
-            baseRobot.StopRobot(baseRobot.latchMotor);
-            baseRobot.ManageHook(FTCBaseRobot.HBServoPosition.MID);
+            //baseRobot.StopRobot(baseRobot.latchMotor);
+            //baseRobot.ManageHook(FTCBaseRobot.HBServoPosition.MID);
 
 			//Step3: Look for Gold one more time in case the last attempt failed
             //Below is looking using vuforia. Replace with Color Sensor Code, if it works
@@ -82,17 +82,17 @@ public class AutoOpRobotAll extends LinearOpMode {
             }
             //Step4: Go towards Gold and Knock off Gold
 			if ( goldPos == 1 ) {
-                baseRobot.DriveRobot(0.20,0); //right turn
+                baseRobot.DriveAWDRobot(0.20,0); //right turn
                 sleep(1500);
-                baseRobot.DriveRobot(0.4,0.4); //go straight
+                baseRobot.DriveAWDRobot(0.4,0.4); //go straight
                 sleep(2000);
 			} else if ( goldPos == 2 ) {
-				baseRobot.DriveRobot(0.4,0.4); //go straight
+				baseRobot.DriveAWDRobot(0.4,0.4); //go straight
 				sleep(2000);
 			} else if ( goldPos == 3 ) {
-				baseRobot.DriveRobot(0,0.25); //right turn
+				baseRobot.DriveAWDRobot(0,0.25); //right turn
 				sleep(1500);
-                baseRobot.DriveRobot(0.4,0.4); //go straight
+                baseRobot.DriveAWDRobot(0.4,0.4); //go straight
                 sleep(2000);
 
 			}  else {

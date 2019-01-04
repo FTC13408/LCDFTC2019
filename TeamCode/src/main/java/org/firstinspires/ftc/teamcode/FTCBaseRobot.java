@@ -1,32 +1,3 @@
-/* Copyright (c) 2017 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 package org.firstinspires.ftc.teamcode;
 
 import android.app.Activity;
@@ -38,23 +9,17 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.CRServo;
 
-/**
- * This is NOT an opmode.
- * <p>
- * This class can be used to define all the specific hardware for a single robot.
- * <p>
- * This hardware class assumes the following device names have been configured on the robot:
- * Note:  All names are lower case and some have single spaces between words.
- */
 public class FTCBaseRobot {
-    /* Public OpMode members. */
-    public DcMotor leftMotor;
-    public DcMotor rightMotor;
-    public DcMotor armMotor;
-    public DcMotor latchMotor;
+    // Public OpMode member
+    public DcMotor leftFrontMotor;
+    public DcMotor rightFrontMotor;
+    public DcMotor leftRearMotor;
+    public DcMotor rightRearMotor;
+  //  public DcMotor plateTiltMotor;
+   // public DcMotor torqueLinearMotor;
+ //   public DcMotor basketLiftMotor;                           Not mounted yet; when it is, update StopRobot
 
-    public CRServo armServo = null;
-    public Servo hookServo = null;
+    public CRServo sweeperSpinServo = null;
 
     private static final double CONTINUOUS_SERVO_STOP = 0.05;
     private static final double CONTINUOUS_SERVO_FORWARD = 1.0;
@@ -77,88 +42,116 @@ public class FTCBaseRobot {
         CLOSE
     }
 
-    /* local OpMode members. */
+    // local OpMode members
     private HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
 
-    /* Constructor */
+    // Constructor
     public FTCBaseRobot() {
 
     }
 
-    /* Initialize standard Hardware interfaces */
+    // Initialize standard Hardware interfaces
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        leftMotor = hwMap.get(DcMotor.class, "leftMotor");
-        rightMotor = hwMap.get(DcMotor.class, "rightMotor");
-        armMotor = hwMap.get(DcMotor.class, "armMotor");
-        latchMotor = hwMap.get(DcMotor.class, "latchMotor");
+        leftFrontMotor = hwMap.get(DcMotor.class, "leftFrontMotor");
+        rightFrontMotor = hwMap.get(DcMotor.class, "rightFrontMotor");
+        leftRearMotor = hwMap.get(DcMotor.class, "leftRearMotor");
+        rightRearMotor = hwMap.get(DcMotor.class, "rightRearMotor");
+    //    plateTiltMotor = hwMap.get(DcMotor.class, "plateTiltMotor");
+       // basketLiftMotor = hwMap.get(DcMotor.class, "basketLiftMotor");
 
-        // Set all motors to run without encoders.
-        // May want to use RUN_USING_ENCODERS if encoders are installed.
-        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        latchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        // Set all motors to run without encoders, may want to use RUN_USING_ENCODERS if encoders are installed.
+        leftRearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightRearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+      //  plateTiltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+       // basketLiftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Set all motors to zero power
-        leftMotor.setPower(0);
-        rightMotor.setPower(0);
-        armMotor.setPower(0);
-        latchMotor.setPower(0);
+        leftRearMotor.setPower(0);
+        leftFrontMotor.setPower(0);
+        rightRearMotor.setPower(0);
+        rightFrontMotor.setPower(0);
+        //plateTiltMotor.setPower(0);
+       // basketLiftMotor.setPower(0);
 
-        // Define and initialize ALL installed servos.
-        armServo = hwMap.get(CRServo.class, "armServo");
-        armServo.setPower(CONTINUOUS_SERVO_STOP);
-
-        hookServo = hwMap.get(Servo.class, "hookServo");
-        //hookServo.setPosition(HB_SERVO_OPEN);
-
+        // Define and initialize ALL installed servos
+         sweeperSpinServo = hwMap.get(CRServo.class, "sweeperSpinServo");
+         sweeperSpinServo.setPower(CONTINUOUS_SERVO_STOP);
     }
 
 //*************************************************************************************************
 //          General
 //*************************************************************************************************
 
-    public void DriveRobot(double leftPower, double rightPower) {
+
+    public void DriveAWDRobot(double leftPower, double rightPower) {
         //Move the robot
-        if (rightMotor != null && leftMotor != null ) {
-            rightMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-            rightMotor.setPower(rightPower);
-            leftMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
-            leftMotor.setPower(leftPower);
-        }
+
+        rightRearMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        rightRearMotor.setPower(rightPower);
+
+        rightFrontMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        rightFrontMotor.setPower(rightPower);
+
+        leftRearMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        leftRearMotor.setPower(leftPower);
+
+        leftFrontMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        leftFrontMotor.setPower(leftPower);
+
+    }
+
+    public void omniRobot(double mRP, double mLP) {
+        //The following is a test of what direction the mecanum wheels will go. Name Accordingly by the direction the robot goes
+
+        rightRearMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        rightRearMotor.setPower(mRP);
+
+        rightFrontMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        rightFrontMotor.setPower(-1 * mRP);
+
+        leftRearMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        leftRearMotor.setPower(-1 * mRP);
+
+        leftFrontMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        leftFrontMotor.setPower(mRP);
+
+        /***********************************************************************/
+        //The following is the opposite of the code above
+
+        rightRearMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        rightRearMotor.setPower(-1 * mLP);
+
+        rightFrontMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        rightFrontMotor.setPower(mLP);
+
+        leftRearMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        leftRearMotor.setPower(mLP);
+
+        leftFrontMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        leftFrontMotor.setPower(-1 * mLP);
     }
 
     public void StopRobot() {
-        // Set all motors to zero power if not reference is provided
-        leftMotor.setPower(0);
-        rightMotor.setPower(0);
-        armMotor.setPower(0);
-        latchMotor.setPower(0);
+        // Set all motors to zero power (reference not provided)
+       // basketLiftMotor.setPower(0);
+        //plateTiltMotor.setPower(0);
+        //torqueLinearMotor.setPower(0);
+        rightFrontMotor.setPower(0);
+        rightRearMotor.setPower(0);
+        leftFrontMotor.setPower(0);
+        leftRearMotor.setPower(0);
     }
 
     public void StopRobot(DcMotor motor) {
-        motor.setPower(0);
-    }
 
-    public void ManageHook(HBServoPosition servoPosition)
-    {
-        if(servoPosition == HBServoPosition.OPEN)
-        {
-            hookServo.setPosition(HB_SERVO_OPEN);
-        }
-        else if(servoPosition == HBServoPosition.CLOSE)
-        {
-            hookServo.setPosition(HB_SERVO_CLOSE);
-        }
-        else if(servoPosition == HBServoPosition.MID)
-        {
-            hookServo.setPosition(HB_SERVO_MID);
-        }
+        motor.setPower(0);
     }
 
 //*************************************************************************************************
@@ -166,13 +159,23 @@ public class FTCBaseRobot {
 //*************************************************************************************************
 
     public void RobotAscend() {
-        latchMotor.setDirection(DcMotor.Direction.FORWARD);
-        latchMotor.setPower(0.35);
+        //torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
+        //torqueLinearMotor.setPower(0.35);
     }
 
     public void RobotDescend() {
-        latchMotor.setDirection(DcMotor.Direction.REVERSE);
-        latchMotor.setPower(0.6);
+        //torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
+        //torqueLinearMotor.setPower(0.6);
+    }
+
+    public void spinServo(CRServoPosition servoPos){
+        if (servoPos == CRServoPosition.STOP) {
+            sweeperSpinServo.setPower(CONTINUOUS_SERVO_STOP);
+        } else if (servoPos == CRServoPosition.FORWARD) {
+            sweeperSpinServo.setPower(CONTINUOUS_SERVO_FORWARD);
+        } else if (servoPos == CRServoPosition.REVERSE) {
+            sweeperSpinServo.setPower(CONTINUOUS_SERVO_REVERSE);
+        }
     }
 
 //*************************************************************************************************
@@ -180,28 +183,12 @@ public class FTCBaseRobot {
 //*************************************************************************************************
 
     public void RobotAscend(double motorPower) {
-        latchMotor.setDirection(DcMotor.Direction.REVERSE);
-        latchMotor.setPower(motorPower);
+        //torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
+        //torqueLinearMotor.setPower(motorPower);
     }
 
     public void RobotDescend(double motorPower) {
-        latchMotor.setDirection(DcMotor.Direction.FORWARD);
-        latchMotor.setPower(motorPower);
-    }
-
-    public void MoveBasket(double servoPos) {
-        armServo.setPower(servoPos);
-    }
-
-
-    public void MoveBasket(CRServoPosition servoPos) {
-        if (servoPos == CRServoPosition.STOP) {
-            armServo.setPower(CONTINUOUS_SERVO_STOP);
-        } else if (servoPos == CRServoPosition.FORWARD) {
-            armServo.setPower(CONTINUOUS_SERVO_FORWARD);
-        } else if (servoPos == CRServoPosition.REVERSE) {
-            armServo.setPower(CONTINUOUS_SERVO_REVERSE);
-        }
+        //torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
+        //torqueLinearMotor.setPower(motorPower);
     }
 }
-
