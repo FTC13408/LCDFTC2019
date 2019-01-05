@@ -19,6 +19,7 @@ public class teleoptest extends LinearOpMode {
     double rightPower =0;
     double mRP = 0;
     double mLP = 0;
+    double tiltPower = 0;
 
     @Override
     public void runOpMode() {
@@ -56,17 +57,47 @@ public class teleoptest extends LinearOpMode {
             mLP = gamepad1.left_trigger;
             baseRobot.omniRobot(mRP, mLP);
 
+            //Sweeper Basket Up
+            if(gamepad2.y)
+            {
+                baseRobot.tiltBasketTeleUp();
+                sleep(200);
+                baseRobot.StopRobot();
+            }
+            //Sweeper Basket Down
+            if(gamepad2.a)
+            {
+                baseRobot.tiltBasketTeleDown();
+                sleep(200);
+                baseRobot.StopRobot();
+            }
+            //Sweep in
+            if(gamepad2.x)
+            {
+                baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.FORWARD);
+                sleep(500);
+                baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.STOP);
+            }
+            //Sweep out
+            if(gamepad2.b)
+            {
+                baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.REVERSE);
+                sleep(100);
+                baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.STOP);
+            }
+            //Linear Arm Up
+            if(gamepad2.dpad_up)
+            {
+                baseRobot.RobotDescend();
+                sleep(2000);
+            }
 
-
-
-
-
-
-
-
-
-
-
+            //Linear Arm down
+            if(gamepad2.dpad_down)
+            {
+                baseRobot.RobotAscend();
+                sleep(2000);
+            }
 //*************************************************************************************************
 //          Update Driver Station with telemetry data
 //*************************************************************************************************

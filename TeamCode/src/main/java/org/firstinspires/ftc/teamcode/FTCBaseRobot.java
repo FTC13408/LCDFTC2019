@@ -156,24 +156,35 @@ public class FTCBaseRobot {
 
         motor.setPower(0);
     }
-
-//*************************************************************************************************
-//          Autonomous
-//*************************************************************************************************
-
-    public void RobotAscendAuto() {
+    public void RobotAscend() {
         //Make the robot go UP! Used in Lift
         torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
         torqueLinearMotor.setPower(0.35);
     }
 
-    public void RobotDescendAuto() {
+    public void RobotDescend() {
         //Make the robot go DOWN! Used in Land
         torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
-        torqueLinearMotor.setPower(0.6);
+        torqueLinearMotor.setPower(0.35);
     }
 
-    public void spinServo(CRServoPosition servoPos){
+    public void liftArm(double armPowerUp)
+    {
+        basketLiftMotor.setDirection(DcMotor.Direction.FORWARD);
+        basketLiftMotor.setPower(armPowerUp);
+    }
+
+    public void dropArm(double armPowerDown)
+    {
+        basketLiftMotor.setDirection(DcMotor.Direction.REVERSE);
+        basketLiftMotor.setPower(armPowerDown);
+    }
+
+//*************************************************************************************************
+//          Autonomous
+//*************************************************************************************************
+
+    public void spinServoAuto(CRServoPosition servoPos){
         if (servoPos == CRServoPosition.STOP) {
             sweeperSpinServo.setPower(CONTINUOUS_SERVO_STOP);
         } else if (servoPos == CRServoPosition.FORWARD) {
@@ -182,18 +193,24 @@ public class FTCBaseRobot {
             sweeperSpinServo.setPower(CONTINUOUS_SERVO_REVERSE);
         }
     }
+    public void tiltBasketAuto(double tiltPower)
+    {
+        plateTiltMotor.setDirection(DcMotor.Direction.FORWARD);
+        plateTiltMotor.setPower(tiltPower);
+    }
 
 //*************************************************************************************************
 //          TeleOp
 //*************************************************************************************************
 
-    public void RobotAscend(double motorPower) {
-        torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
-        torqueLinearMotor.setPower(motorPower);
+    public void tiltBasketTeleUp()
+    {
+        plateTiltMotor.setDirection(DcMotor.Direction.FORWARD);
+        plateTiltMotor.setPower(.4);
     }
-
-    public void RobotDescend(double motorPower) {
-        torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
-        torqueLinearMotor.setPower(motorPower);
+    public void tiltBasketTeleDown()
+    {
+        plateTiltMotor.setDirection(DcMotor.Direction.FORWARD);
+        plateTiltMotor.setPower(-.4);
     }
 }

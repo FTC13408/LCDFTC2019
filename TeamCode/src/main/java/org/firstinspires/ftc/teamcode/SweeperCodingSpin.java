@@ -77,7 +77,7 @@ public class SweeperCodingSpin extends LinearOpMode {
         // Run code till stop pressed.
         while(opModeIsActive()){
 
-           baseRobot.spinServo(FTCBaseRobot.CRServoPosition.FORWARD);
+           baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.FORWARD);
         }
 
         // Signal done;

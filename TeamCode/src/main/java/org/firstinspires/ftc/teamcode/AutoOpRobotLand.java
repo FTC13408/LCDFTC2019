@@ -75,7 +75,7 @@ public class AutoOpRobotLand extends LinearOpMode {
 
         // Run code till stop pressed.
         while(opModeIsActive()){
-            baseRobot.RobotDescendAuto();
+            baseRobot.RobotDescend();
             sleep(3000);
             baseRobot.StopRobot(baseRobot.torqueLinearMotor);
             baseRobot.omniRobot(0.25,0);
