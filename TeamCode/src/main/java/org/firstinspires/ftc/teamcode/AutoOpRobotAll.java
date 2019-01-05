@@ -64,7 +64,7 @@ public class AutoOpRobotAll extends LinearOpMode {
             telemetry.update();
 
             //Step2: Descend
-            baseRobot.RobotDescend();
+            //baseRobot.RobotDescend();
             sleep(3500);
             //baseRobot.StopRobot(baseRobot.latchMotor);
             //baseRobot.ManageHook(FTCBaseRobot.HBServoPosition.MID);

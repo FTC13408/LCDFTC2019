@@ -76,7 +76,9 @@ public class AutoOpRobotLift extends LinearOpMode {
 
         // Run code till stop pressed.
         while(opModeIsActive()){
-            //lift robot
+            baseRobot.RobotAscendAuto();
+            sleep(3000);
+            baseRobot.StopRobot();
         }
 
         // Signal done

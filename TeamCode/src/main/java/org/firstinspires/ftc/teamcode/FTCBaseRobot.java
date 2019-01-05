@@ -63,6 +63,7 @@ public class FTCBaseRobot {
         rightRearMotor = hwMap.get(DcMotor.class, "rightRearMotor");
         plateTiltMotor = hwMap.get(DcMotor.class, "plateTiltMotor");
         basketLiftMotor = hwMap.get(DcMotor.class, "basketLiftMotor");
+        torqueLinearMotor = hwMap.get(DcMotor.class, "torqueLinearMotor");
 
         // Set all motors to run without encoders, may want to use RUN_USING_ENCODERS if encoders are installed.
         leftRearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -71,6 +72,7 @@ public class FTCBaseRobot {
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         plateTiltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         basketLiftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        torqueLinearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Set all motors to zero power
         leftRearMotor.setPower(0);
@@ -79,6 +81,7 @@ public class FTCBaseRobot {
         rightFrontMotor.setPower(0);
         plateTiltMotor.setPower(0);
         basketLiftMotor.setPower(0);
+        torqueLinearMotor.setPower(0);
 
         // Define and initialize ALL installed servos
          sweeperSpinServo = hwMap.get(CRServo.class, "sweeperSpinServo");
@@ -158,14 +161,16 @@ public class FTCBaseRobot {
 //          Autonomous
 //*************************************************************************************************
 
-    public void RobotAscend() {
-        torqueLinearMotor.setPower(0.35);
+    public void RobotAscendAuto() {
+        //Make the robot go UP! Used in Lift
         torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
+        torqueLinearMotor.setPower(0.35);
     }
 
-    public void RobotDescend() {
-        torqueLinearMotor.setPower(0.6);
+    public void RobotDescendAuto() {
+        //Make the robot go DOWN! Used in Land
         torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
+        torqueLinearMotor.setPower(0.6);
     }
 
     public void spinServo(CRServoPosition servoPos){
