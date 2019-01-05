@@ -52,7 +52,7 @@ public class AutoOpModeRight extends LinearOpMode {
 
         // Run code till stop pressed.
         while(opModeIsActive()){
-            baseRobot.omniRobot(.25, .25);
+            baseRobot.omniRobot(-.25, -.25);
             sleep(1000);                                        //right
             baseRobot.StopRobot();
             stop();

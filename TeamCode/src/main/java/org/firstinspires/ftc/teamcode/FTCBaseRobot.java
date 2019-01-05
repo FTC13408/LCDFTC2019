@@ -15,9 +15,9 @@ public class FTCBaseRobot {
     public DcMotor rightFrontMotor;
     public DcMotor leftRearMotor;
     public DcMotor rightRearMotor;
-  //  public DcMotor plateTiltMotor;
-   // public DcMotor torqueLinearMotor;
- //   public DcMotor basketLiftMotor;                           Not mounted yet; when it is, update StopRobot
+    public DcMotor plateTiltMotor;
+    public DcMotor torqueLinearMotor;
+    public DcMotor basketLiftMotor;
 
     public CRServo sweeperSpinServo = null;
 
@@ -61,24 +61,24 @@ public class FTCBaseRobot {
         rightFrontMotor = hwMap.get(DcMotor.class, "rightFrontMotor");
         leftRearMotor = hwMap.get(DcMotor.class, "leftRearMotor");
         rightRearMotor = hwMap.get(DcMotor.class, "rightRearMotor");
-    //    plateTiltMotor = hwMap.get(DcMotor.class, "plateTiltMotor");
-       // basketLiftMotor = hwMap.get(DcMotor.class, "basketLiftMotor");
+        plateTiltMotor = hwMap.get(DcMotor.class, "plateTiltMotor");
+        basketLiftMotor = hwMap.get(DcMotor.class, "basketLiftMotor");
 
         // Set all motors to run without encoders, may want to use RUN_USING_ENCODERS if encoders are installed.
         leftRearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightRearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-      //  plateTiltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-       // basketLiftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        plateTiltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        basketLiftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Set all motors to zero power
         leftRearMotor.setPower(0);
         leftFrontMotor.setPower(0);
         rightRearMotor.setPower(0);
         rightFrontMotor.setPower(0);
-        //plateTiltMotor.setPower(0);
-       // basketLiftMotor.setPower(0);
+        plateTiltMotor.setPower(0);
+        basketLiftMotor.setPower(0);
 
         // Define and initialize ALL installed servos
          sweeperSpinServo = hwMap.get(CRServo.class, "sweeperSpinServo");
@@ -104,7 +104,6 @@ public class FTCBaseRobot {
 
         leftFrontMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         leftFrontMotor.setPower(leftPower);
-
     }
 
     public void omniRobot(double mRP, double mLP) {
@@ -140,9 +139,10 @@ public class FTCBaseRobot {
 
     public void StopRobot() {
         // Set all motors to zero power (reference not provided)
-       // basketLiftMotor.setPower(0);
-        //plateTiltMotor.setPower(0);
-        //torqueLinearMotor.setPower(0);
+
+        basketLiftMotor.setPower(0);
+        plateTiltMotor.setPower(0);
+        torqueLinearMotor.setPower(0);
         rightFrontMotor.setPower(0);
         rightRearMotor.setPower(0);
         leftFrontMotor.setPower(0);
@@ -159,13 +159,13 @@ public class FTCBaseRobot {
 //*************************************************************************************************
 
     public void RobotAscend() {
-        //torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
-        //torqueLinearMotor.setPower(0.35);
+        torqueLinearMotor.setPower(0.35);
+        torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
     }
 
     public void RobotDescend() {
-        //torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
-        //torqueLinearMotor.setPower(0.6);
+        torqueLinearMotor.setPower(0.6);
+        torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
     }
 
     public void spinServo(CRServoPosition servoPos){
@@ -183,12 +183,12 @@ public class FTCBaseRobot {
 //*************************************************************************************************
 
     public void RobotAscend(double motorPower) {
-        //torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
-        //torqueLinearMotor.setPower(motorPower);
+        torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
+        torqueLinearMotor.setPower(motorPower);
     }
 
     public void RobotDescend(double motorPower) {
-        //torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
-        //torqueLinearMotor.setPower(motorPower);
+        torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
+        torqueLinearMotor.setPower(motorPower);
     }
 }

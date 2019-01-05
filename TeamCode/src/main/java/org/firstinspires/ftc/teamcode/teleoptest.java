@@ -47,8 +47,8 @@ public class teleoptest extends LinearOpMode {
 //*************************************************************************************************
 
             //Regular Wheel Robot Control
-            rightPower = 0.8*gamepad1.right_stick_y;
-            leftPower = 0.8*gamepad1.left_stick_y;
+            rightPower = -0.8 * gamepad1.right_stick_y;
+            leftPower = -0.8 * gamepad1.left_stick_y;
             baseRobot.DriveAWDRobot(leftPower, rightPower);
 
             //Mecanum Drive Test. Test what side robot glides and adjust accordingly.

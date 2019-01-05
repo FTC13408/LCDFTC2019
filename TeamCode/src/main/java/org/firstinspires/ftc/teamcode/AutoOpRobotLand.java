@@ -78,7 +78,7 @@ public class AutoOpRobotLand extends LinearOpMode {
 
             baseRobot.RobotDescend();
             sleep(5000);
-            //baseRobot.StopRobot(baseRobot.torqueLinearMotor);
+            baseRobot.StopRobot(baseRobot.torqueLinearMotor);
             baseRobot.omniRobot(0.25,0);
             sleep(2000);
         }
