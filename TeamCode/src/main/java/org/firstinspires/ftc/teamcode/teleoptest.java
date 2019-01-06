@@ -19,22 +19,20 @@ public class teleoptest extends LinearOpMode {
     double rightPower =0;
     double mRP = 0;
     double mLP = 0;
-    double tiltPower = 0;
+    double armPowerUp;
+    double armPowerDown;
+    double raisePower;
+    double lowerPower;
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
         baseRobot.init(hardwareMap);
-        // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 //*************************************************************************************************
 //          GAMEPAD 1
@@ -56,6 +54,13 @@ public class teleoptest extends LinearOpMode {
             mRP = gamepad1.right_trigger;
             mLP = gamepad1.left_trigger;
             baseRobot.omniRobot(mRP, mLP);
+
+            //Stop all motors and servos
+            if(gamepad1.right_bumper)
+            {
+                baseRobot.StopRobot();
+                baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.STOP);
+            }
 
             //Sweeper Basket Up
             if(gamepad2.y)
@@ -82,23 +87,34 @@ public class teleoptest extends LinearOpMode {
             if(gamepad2.b)
             {
                 baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.REVERSE);
-                sleep(100);
+                sleep(50);
                 baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.STOP);
             }
-            //Linear Arm Up
-            if(gamepad2.dpad_up)
+
+            //Make the linear arm go down, hence raising the robot
+            raisePower = -0.5 * gamepad2.right_stick_y;
+            baseRobot.RobotAscendTele(raisePower);
+
+            //Make the linear arm go up, hence lowering the robot
+            lowerPower = 0.5 * gamepad2.left_stick_y;
+            baseRobot.RobotDescendTele(lowerPower);
+
+            //Basket Up
+            armPowerUp = 0.8 * gamepad2.left_trigger;
+            baseRobot.liftArm(armPowerUp);
+
+            //Basket Down
+            armPowerDown = 0.8 * gamepad2.right_trigger;
+            baseRobot.dropArm(armPowerDown);
+
+            //Stop All Motors and servos
+            if(gamepad2.right_bumper)
             {
-                baseRobot.RobotDescend();
-                sleep(2000);
+                baseRobot.StopRobot();
+                baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.STOP);
             }
 
-            //Linear Arm down
-            if(gamepad2.dpad_down)
-            {
-                baseRobot.RobotAscend();
-                sleep(2000);
-            }
-//*************************************************************************************************
+            //*************************************************************************************************
 //          Update Driver Station with telemetry data
 //*************************************************************************************************
             // Show the elapsed game time and wheel power.

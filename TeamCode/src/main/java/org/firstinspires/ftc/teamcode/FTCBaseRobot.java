@@ -156,17 +156,6 @@ public class FTCBaseRobot {
 
         motor.setPower(0);
     }
-    public void RobotAscend() {
-        //Make the robot go UP! Used in Lift
-        torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
-        torqueLinearMotor.setPower(0.35);
-    }
-
-    public void RobotDescend() {
-        //Make the robot go DOWN! Used in Land
-        torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
-        torqueLinearMotor.setPower(0.35);
-    }
 
     public void liftArm(double armPowerUp)
     {
@@ -198,6 +187,17 @@ public class FTCBaseRobot {
         plateTiltMotor.setDirection(DcMotor.Direction.FORWARD);
         plateTiltMotor.setPower(tiltPower);
     }
+    public void RobotAscendAuto() {
+        //Make the robot go UP! Used in Lift
+        torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
+        torqueLinearMotor.setPower(0.35);
+    }
+
+    public void RobotDescendAuto() {
+        //Make the robot go DOWN! Used in Land
+        torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
+        torqueLinearMotor.setPower(0.35);
+    }
 
 //*************************************************************************************************
 //          TeleOp
@@ -212,5 +212,15 @@ public class FTCBaseRobot {
     {
         plateTiltMotor.setDirection(DcMotor.Direction.FORWARD);
         plateTiltMotor.setPower(-.4);
+    }
+    public void RobotAscendTele(double raisePower)
+    {
+        torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
+        torqueLinearMotor.setPower(raisePower);
+    }
+    public void RobotDescendTele(double lowerPower)
+    {
+        torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
+        torqueLinearMotor.setPower(lowerPower);
     }
 }
