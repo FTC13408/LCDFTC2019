@@ -92,11 +92,11 @@ public class teleoptest extends LinearOpMode {
             }
 
             //Make the linear arm go down, hence raising the robot
-            raisePower = -0.5 * gamepad2.right_stick_y;
+            raisePower = gamepad2.right_stick_y;
             baseRobot.RobotAscendTele(raisePower);
 
             //Make the linear arm go up, hence lowering the robot
-            lowerPower = 0.5 * gamepad2.left_stick_y;
+            lowerPower = gamepad2.left_stick_y;
             baseRobot.RobotDescendTele(lowerPower);
 
             //Basket Up

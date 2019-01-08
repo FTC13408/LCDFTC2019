@@ -18,6 +18,7 @@ public class FTCBaseRobot {
     public DcMotor plateTiltMotor;
     public DcMotor torqueLinearMotor;
     public DcMotor basketLiftMotor;
+    public DcMotor leftTorqueLinearMotor;
 
     public CRServo sweeperSpinServo = null;
 
@@ -64,6 +65,7 @@ public class FTCBaseRobot {
         plateTiltMotor = hwMap.get(DcMotor.class, "plateTiltMotor");
         basketLiftMotor = hwMap.get(DcMotor.class, "basketLiftMotor");
         torqueLinearMotor = hwMap.get(DcMotor.class, "torqueLinearMotor");
+        leftTorqueLinearMotor = hwMap.get(DcMotor.class, "leftTorqueLinearMotor");
 
         // Set all motors to run without encoders, may want to use RUN_USING_ENCODERS if encoders are installed.
         leftRearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -73,7 +75,7 @@ public class FTCBaseRobot {
         plateTiltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         basketLiftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         torqueLinearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+        leftTorqueLinearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         // Set all motors to zero power
         leftRearMotor.setPower(0);
         leftFrontMotor.setPower(0);
@@ -82,6 +84,7 @@ public class FTCBaseRobot {
         plateTiltMotor.setPower(0);
         basketLiftMotor.setPower(0);
         torqueLinearMotor.setPower(0);
+        leftTorqueLinearMotor.setPower(0);
 
         // Define and initialize ALL installed servos
          sweeperSpinServo = hwMap.get(CRServo.class, "sweeperSpinServo");
@@ -146,6 +149,7 @@ public class FTCBaseRobot {
         basketLiftMotor.setPower(0);
         plateTiltMotor.setPower(0);
         torqueLinearMotor.setPower(0);
+        leftTorqueLinearMotor.setPower(0);
         rightFrontMotor.setPower(0);
         rightRearMotor.setPower(0);
         leftFrontMotor.setPower(0);
@@ -190,13 +194,17 @@ public class FTCBaseRobot {
     public void RobotAscendAuto() {
         //Make the robot go UP! Used in Lift
         torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
+        leftTorqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
         torqueLinearMotor.setPower(0.35);
+        leftTorqueLinearMotor.setPower(0.35);
     }
 
     public void RobotDescendAuto() {
         //Make the robot go DOWN! Used in Land
         torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftTorqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
         torqueLinearMotor.setPower(0.35);
+        leftTorqueLinearMotor.setPower(0.35);
     }
 
 //*************************************************************************************************
@@ -217,10 +225,14 @@ public class FTCBaseRobot {
     {
         torqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
         torqueLinearMotor.setPower(raisePower);
+        leftTorqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftTorqueLinearMotor.setPower(raisePower);
     }
     public void RobotDescendTele(double lowerPower)
     {
         torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
         torqueLinearMotor.setPower(lowerPower);
+        leftTorqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
+        leftTorqueLinearMotor.setPower(lowerPower);
     }
 }
