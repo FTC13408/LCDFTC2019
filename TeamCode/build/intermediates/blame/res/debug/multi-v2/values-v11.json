@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\FTC2019\\LCDFTC2019\\TeamCode\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v11\\values-v11.xml",
+            "outputFile": "C:\\FTCCODE2018-19\\LCDFTCCode2019\\LCDFTC2019\\TeamCode\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v11\\values-v11.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Admin\\.gradle\\caches\\transforms-1\\files-1.1\\RobotCore-release.aar\\5162f62dc5f71bbcc4255843c9d787d0\\res\\values-v11\\values-v11.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-1\\files-1.1\\RobotCore-release.aar\\eda0ce256ef0bcf8c723c41395af2ff2\\res\\values-v11\\values-v11.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
