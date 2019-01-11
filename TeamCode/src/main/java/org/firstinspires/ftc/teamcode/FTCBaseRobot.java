@@ -203,8 +203,8 @@ public class FTCBaseRobot {
         //Make the robot go DOWN! Used in Land
         torqueLinearMotor.setDirection(DcMotor.Direction.REVERSE);
         leftTorqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
-        torqueLinearMotor.setPower(0.35);
-        leftTorqueLinearMotor.setPower(0.35);
+        torqueLinearMotor.setPower(0.7);
+        leftTorqueLinearMotor.setPower(0.7);
     }
 
 //*************************************************************************************************
@@ -235,4 +235,5 @@ public class FTCBaseRobot {
         leftTorqueLinearMotor.setDirection(DcMotor.Direction.FORWARD);
         leftTorqueLinearMotor.setPower(lowerPower);
     }
+
 }

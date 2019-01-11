@@ -20,9 +20,9 @@ import java.util.Locale;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit.mmPerInch;
 
-@Autonomous(name = "AutoOpRobotAll", group = "Auto Linear Opmode")
+@Autonomous(name = "AutoOpRobotCrater", group = "Auto Linear Opmode")
 //@Disabled
-public class AutoOpRobotAll extends LinearOpMode {
+public class AutoOpRobotCrater extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private static final double INCREMENT = 0.01;     // amount to slew servo each CYCLE_MS cycle
@@ -64,13 +64,24 @@ public class AutoOpRobotAll extends LinearOpMode {
             telemetry.update();
 
             //Step2: Descend
-            //baseRobot.RobotDescend();
-            sleep(3500);
-            //baseRobot.StopRobot(baseRobot.latchMotor);
-            //baseRobot.ManageHook(FTCBaseRobot.HBServoPosition.MID);
+            baseRobot.RobotDescendAuto();
+            sleep(6000);
+            baseRobot.StopRobot();
 
-			//Step3: Look for Gold one more time in case the last attempt failed
-            //Below is looking using vuforia. Replace with Color Sensor Code, if it works
+            baseRobot.omniRobot(0, .5);
+            sleep(100);
+            baseRobot.StopRobot();
+
+            baseRobot.DriveAWDRobot(.3, .3);
+            sleep(500);
+            baseRobot.StopRobot();
+
+            baseRobot.omniRobot(0.5,0);
+            sleep(100);
+            baseRobot.StopRobot();
+
+			//Step3: Look for Gold one more time in case the last attempt failed.
+            // Below is looking using vuforia. Replace with Color Sensor Code, if it works
 			if ( goldPos == 0 ) {
                 vuforiaNR.setGoldFound(false);
                 goldPos = vuforiaNR.findGold();
@@ -82,55 +93,78 @@ public class AutoOpRobotAll extends LinearOpMode {
             }
             //Step4: Go towards Gold and Knock off Gold
 			if ( goldPos == 1 ) {
-                baseRobot.DriveAWDRobot(0.20,0); //right turn
-                sleep(1500);
+                baseRobot.omniRobot(0.0,0.8); //right turn
+                sleep(100);
+                baseRobot.StopRobot();
+
                 baseRobot.DriveAWDRobot(0.4,0.4); //go straight
                 sleep(2000);
+                baseRobot.StopRobot();
+
+                baseRobot.DriveAWDRobot(-.4, -.4);
+                sleep(2000);
+                baseRobot.StopRobot();
+
+                baseRobot.omniRobot(.8, 0);
+                sleep(100);
+                baseRobot.StopRobot();
+
 			} else if ( goldPos == 2 ) {
 				baseRobot.DriveAWDRobot(0.4,0.4); //go straight
 				sleep(2000);
+				baseRobot.StopRobot();
+
+				baseRobot.DriveAWDRobot(-.4, -.4);
+				sleep(2000);
+				baseRobot.StopRobot();
+
 			} else if ( goldPos == 3 ) {
-				baseRobot.DriveAWDRobot(0,0.25); //right turn
-				sleep(1500);
+				baseRobot.omniRobot(0.8,0.0); //right turn
+				sleep(500);
+				baseRobot.StopRobot();
+
                 baseRobot.DriveAWDRobot(0.4,0.4); //go straight
                 sleep(2000);
+                baseRobot.StopRobot();
+
+                baseRobot.DriveAWDRobot(-.4, -.4);
+                sleep(2000);
+                baseRobot.StopRobot();
+
+                baseRobot.omniRobot(0, .8);
+                sleep(500);
+                baseRobot.StopRobot();
 
 			}  else {
 			    //GOD HELP YE !
             }
 
-			//baseRobot.StopRobot();
-
             //Step5: See if there is a Crater ahead of you using color distance sensor
-            sensorColor = senseMineralColor.getSensorColor();
-            sensorDistance = senseMineralColor.getSensorDistance();
-            hsvValues = senseMineralColor.getHsvValues();
-
-            int alpha = sensorColor.alpha();
-            int red = sensorColor.red();
-            int green = sensorColor.green();
-            int blue = sensorColor.blue();
-            char craterDepot = 'N';
-
-            if ( red > 100 || blue > 100 ) {
-                craterDepot = 'D';
-            } else  if ( red < 60 && blue < 60 && green < 60) {
-                craterDepot = 'C';
-            }
-
-            //telemetry.addData("Distance (cm)",
-              //      String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
-            //telemetry.addData("Alpha", alpha);
-            ///telemetry.addData("Red  ", red);
-            //telemetry.addData("Green", green);
-            //telemetry.addData("Blue ", blue);
-            telemetry.addData("Crater Depot ", craterDepot);
-            //telemetry.addData("Hue", hsvValues[0]);
-            telemetry.update();
-
-            //Step 5.1: OPTIONAL: Depending on testing, we might have to turn the robot a little to look at the walls for Navigational Targets
-
-            //Step 5.2: OPTIONAL: See if you can find a Navigation Target in front of you.
+//            sensorColor = senseMineralColor.getSensorColor();
+//            sensorDistance = senseMineralColor.getSensorDistance();
+//            hsvValues = senseMineralColor.getHsvValues();
+//
+//            int alpha = sensorColor.alpha();
+//            int red = sensorColor.red();
+//            int green = sensorColor.green();
+//            int blue = sensorColor.blue();
+//            char craterDepot = 'N';
+//
+//            if ( red > 100 || blue > 100 ) {
+//                craterDepot = 'D';
+//            } else  if ( red < 60 && blue < 60 && green < 60) {
+//                craterDepot = 'C';
+//            }
+//
+//            //telemetry.addData("Distance (cm)",
+//              //      String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
+//            //telemetry.addData("Alpha", alpha);
+//            ///telemetry.addData("Red  ", red);
+//            //telemetry.addData("Green", green);
+//            //telemetry.addData("Blue ", blue);
+//            telemetry.addData("Crater Depot ", craterDepot);
+//            //telemetry.addData("Hue", hsvValues[0]);
+//            telemetry.update();
 
                 // UNCOMMENT AS WE PROGRESS
                 /** vuforiaNR.findLocation();

@@ -90,6 +90,20 @@ public class teleoptest extends LinearOpMode {
                 sleep(50);
                 baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.STOP);
             }
+            //Lift the arm to the exact right height to latch
+            if(gamepad1.dpad_up)
+            {
+                baseRobot.RobotDescendAuto();
+                sleep(3000);
+                baseRobot.StopRobot();
+            }
+            //Drop the arm to the exact right height as default from the latch position itself
+            if(gamepad1.dpad_down)
+            {
+                baseRobot.RobotAscendAuto();
+                sleep(3000);
+                baseRobot.StopRobot();
+            }
 
             //Make the linear arm go down, hence raising the robot
             raisePower = gamepad2.right_stick_y;
@@ -100,11 +114,11 @@ public class teleoptest extends LinearOpMode {
             baseRobot.RobotDescendTele(lowerPower);
 
             //Basket Up
-            armPowerUp = 0.8 * gamepad2.left_trigger;
+            armPowerUp = gamepad2.left_trigger;
             baseRobot.liftArm(armPowerUp);
 
             //Basket Down
-            armPowerDown = 0.8 * gamepad2.right_trigger;
+            armPowerDown = gamepad2.right_trigger;
             baseRobot.dropArm(armPowerDown);
 
             //Stop All Motors and servos

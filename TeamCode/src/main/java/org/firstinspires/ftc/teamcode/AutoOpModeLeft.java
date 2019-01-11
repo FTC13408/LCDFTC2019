@@ -14,7 +14,7 @@ import junit.framework.Test;
 
 
 @Autonomous(name="AutoOpMode_Left", group="Linear Movements")
-//@Disabled
+@Disabled
 public class AutoOpModeLeft extends LinearOpMode {
 
     FTCBaseRobot baseRobot = new FTCBaseRobot();

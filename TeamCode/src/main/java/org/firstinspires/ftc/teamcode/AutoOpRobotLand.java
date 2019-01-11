@@ -30,10 +30,16 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
+import java.util.Locale;
 
 @Autonomous(name="AutoOp_RobotLand", group="Linear Movements")
 //@Disabled
@@ -59,12 +65,16 @@ public class AutoOpRobotLand extends LinearOpMode {
     public static final double ARM_UP_POWER    =  0.45 ;
     public static final double ARM_DOWN_POWER  = -0.45 ;
     private boolean rampUp = true;
+    DistanceSensor sensorDistance;
+    SensorColorLCD senseMineralColor = new SensorColorLCD();
 
     @Override
     public void runOpMode() {
         // Connect to servo (Assume PushBot Left Hand)
         // Change the text in quotes to match any servo name on your robot.
         baseRobot.init(hardwareMap);
+        senseMineralColor.init(hardwareMap);
+
 
         // Wait for the start button
         telemetry.addData(">", "Press Start to Test Robot Landing." );
@@ -75,15 +85,45 @@ public class AutoOpRobotLand extends LinearOpMode {
 
         // Run code till stop pressed.
         while(opModeIsActive()){
-            baseRobot.RobotDescendAuto();
-            sleep(3000);
-            baseRobot.StopRobot(baseRobot.torqueLinearMotor);
-            baseRobot.omniRobot(0.25,0);
-            sleep(2000);
+
+            //baseRobot.RobotDescendAuto();
+            //sleep(6000);
+            //baseRobot.StopRobot();
+
+            //baseRobot.omniRobot(-0.25,-0.25);
+            //sleep(1000);
+            //baseRobot.StopRobot();
+
+            sensorDistance = senseMineralColor.getSensorDistance();
+            float landingDistance = (float) sensorDistance.getDistance(DistanceUnit.CM);
+
+            telemetry.addData("Distance (cm)",
+                    String.format(Locale.US, "%.02f", landingDistance));
+            telemetry.update();
+
+
+            while (Boolean.TRUE) {
+//                baseRobot.RobotDescendAuto();
+                sleep(500);
+                sensorDistance = senseMineralColor.getSensorDistance();
+                landingDistance = (float) sensorDistance.getDistance(DistanceUnit.CM);
+
+                telemetry.addData("Distance (cm)",
+                        String.format(Locale.US, "%.02f", landingDistance));
+                telemetry.update();
+                if (landingDistance <= 7) break;
+            }
+            baseRobot.StopRobot();
+
+            //Step2.1: Move the Robot to it's  Left to remove the latch from the hook
+            //baseRobot.omniRobot(-0.25, -0.25);
+            //sleep(1500);
+            //baseRobot.StopRobot();
+            stop();
         }
 
         // Signal done;
-        telemetry.addData(">", "Done");
+//        telemetry.addData(">", "Done");
         telemetry.update();
     }
 }
