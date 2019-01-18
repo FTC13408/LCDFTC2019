@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="AutoOp_PlateTilt", group="Linear Movements")
-@Disabled
+//@Disabled
 
 public class PlateTiltingCode extends LinearOpMode {
 

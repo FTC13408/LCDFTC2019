@@ -119,10 +119,10 @@ public class FTCBaseRobot {
         rightRearMotor.setPower(mRP);
 
         rightFrontMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        rightFrontMotor.setPower(-1 * mRP);
+        rightFrontMotor.setPower(-mRP);
 
         leftRearMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
-        leftRearMotor.setPower(-1 * mRP);
+        leftRearMotor.setPower(-mRP);
 
         leftFrontMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         leftFrontMotor.setPower(mRP);
@@ -131,7 +131,7 @@ public class FTCBaseRobot {
         //The following is the opposite of the code above
 
         rightRearMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        rightRearMotor.setPower(-1 * mLP);
+        rightRearMotor.setPower(-mLP);
 
         rightFrontMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         rightFrontMotor.setPower(mLP);
@@ -140,7 +140,7 @@ public class FTCBaseRobot {
         leftRearMotor.setPower(mLP);
 
         leftFrontMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
-        leftFrontMotor.setPower(-1 * mLP);
+        leftFrontMotor.setPower(-mLP);
     }
 
     public void StopRobot() {
@@ -163,13 +163,13 @@ public class FTCBaseRobot {
 
     public void liftArm(double armPowerUp)
     {
-        basketLiftMotor.setDirection(DcMotor.Direction.FORWARD);
+        basketLiftMotor.setDirection(DcMotor.Direction.REVERSE);
         basketLiftMotor.setPower(armPowerUp);
     }
 
     public void dropArm(double armPowerDown)
     {
-        basketLiftMotor.setDirection(DcMotor.Direction.REVERSE);
+        basketLiftMotor.setDirection(DcMotor.Direction.FORWARD);
         basketLiftMotor.setPower(armPowerDown);
     }
 

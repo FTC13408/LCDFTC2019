@@ -14,7 +14,7 @@ import junit.framework.Test;
 
 
 @Autonomous(name="AutoOpMode_Backward", group="Linear Movements")
-@Disabled
+//@Disabled
 
 public class AutoOpModeBackward extends LinearOpMode {
 

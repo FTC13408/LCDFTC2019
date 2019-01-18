@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="AutoOp_LiftBasket", group="Linear Movements")
-@Disabled
+//@Disabled
 public class LiftBasketCode extends LinearOpMode {
 
     FTCBaseRobot baseRobot = new FTCBaseRobot();

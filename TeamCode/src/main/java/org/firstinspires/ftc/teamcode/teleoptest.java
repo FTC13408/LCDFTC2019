@@ -90,20 +90,6 @@ public class teleoptest extends LinearOpMode {
                 sleep(50);
                 baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.STOP);
             }
-            //Lift the arm to the exact right height to latch
-            if(gamepad1.dpad_up)
-            {
-                baseRobot.RobotDescendAuto();
-                sleep(3000);
-                baseRobot.StopRobot();
-            }
-            //Drop the arm to the exact right height as default from the latch position itself
-            if(gamepad1.dpad_down)
-            {
-                baseRobot.RobotAscendAuto();
-                sleep(3000);
-                baseRobot.StopRobot();
-            }
 
             //Make the linear arm go down, hence raising the robot
             raisePower = gamepad2.right_stick_y;
@@ -113,20 +99,22 @@ public class teleoptest extends LinearOpMode {
             lowerPower = gamepad2.left_stick_y;
             baseRobot.RobotDescendTele(lowerPower);
 
-            //Basket Up
-            armPowerUp = gamepad2.left_trigger;
-            baseRobot.liftArm(armPowerUp);
-
             //Basket Down
-            armPowerDown = gamepad2.right_trigger;
+            armPowerDown = gamepad2.left_trigger;
             baseRobot.dropArm(armPowerDown);
 
-            //Stop All Motors and servos
-            if(gamepad2.right_bumper)
-            {
+            //Basket Down
+            if(gamepad2.right_trigger > 0.2) {
+                baseRobot.liftArm(.7);
+                sleep(800);
                 baseRobot.StopRobot();
-                baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.STOP);
             }
+//            //Stop All Motors and servos
+//            if(gamepad2.right_bumper)
+//            {
+//                baseRobot.StopRobot();
+//                baseRobot.spinServoAuto(FTCBaseRobot.CRServoPosition.STOP);
+//            }
 
             //*************************************************************************************************
 //          Update Driver Station with telemetry data

@@ -38,7 +38,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="AutoOp_DropBasket", group="Linear Movements")
 
-@Disabled
+//@Disabled
 public class DropBasketCode extends LinearOpMode {
 
     FTCBaseRobot baseRobot = new FTCBaseRobot();
